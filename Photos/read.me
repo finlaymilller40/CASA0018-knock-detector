@@ -1,1 +1,44 @@
+# Knock Detector
 
+An edge AI device that listens for door knocks and provides a visual alert.
+Built for CASA0018: Deep Learning for Sensor Networks.
+
+**Author:** Finlay Miller
+**Module:** CASA0018, UCL Bartlett Centre for Advanced Spatial Analysis
+
+## Project summary
+
+More than 18 million adults in the UK are deaf or have hearing loss. For this population, an unanswered knock at the door means a missed visitor, delivery, or emergency. Smart doorbells only solve this when visitors press the button — and around half don't.
+
+This project is a low-power embedded device that listens for knocks using a 1D convolutional neural network running entirely on an Arduino Nano 33 BLE Sense. When a knock is detected, the LED turns red and a Bluetooth notification is sent to a paired phone.
+
+## Results
+
+| Metric | Value |
+|---|---|
+| Test accuracy | 93.98% |
+| Knock recall | 91.7% |
+| False positive rate | 3.9% |
+| AUC | 0.94 |
+| RAM usage on Arduino | 15.4 KB |
+| Flash usage on Arduino | 30.4 KB |
+| End-to-end inference latency | 157 ms |
+
+## How it works
+
+Audio is captured by the onboard PDM microphone at 16 kHz in 1-second windows. Each window is converted to 13 MFCC coefficients across 50 frames, classified by a small 1D CNN, and gated by a 0.85 confidence threshold. The device persists in alert state until acknowledged via a Bluetooth Low Energy write from a paired phone.
+
+## Repository contents
+
+- `Arduino/` — Final Arduino sketch deployed to the Nano 33 BLE Sense
+- `screenshots/` — Edge Impulse Studio screenshots showing dataset, model, and results
+- `diagrams/` — System pipeline and state machine diagrams
+- `Photos/` — Device deployment photos and nRF Connect acknowledgement screenshot
+- `docs/` — Data collection protocol and report PDF
+
+## Hardware required to reproduce
+
+- Arduino Nano 33 BLE Sense (with PDM microphone)
+- Tiny Machine Learning Shield (carrier board)
+- USB cable for power and programming
+- USB batt
